@@ -14,3 +14,5 @@ This project is a simple visual simulation of Firefly like movement. [Click here
 ## Usage
 
 To run the project, simply open the `index.html` file in a web browser.
+
+![preview](https://github.com/user-attachments/assets/61825585-60f8-4288-98b6-5e444b4852cb)
