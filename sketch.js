@@ -1,10 +1,22 @@
 let slider;
+let colorPicker;
 let N = 100;
 let p = [],
   v = [];
 let row, col;
 let off = 0.01;
 let cnv;
+let fireflyColors = [
+  [6, 167, 25],    // default green
+  [255, 255, 102], // yellow
+  [255, 255, 0],   // bright yellow
+  [0, 255, 128],   // teal-green
+  [0, 255, 255],   // cyan
+  [255, 153, 51],  // orange
+  [255, 51, 153],  // pink
+  [102, 255, 102], // light green
+];
+let currentColor = fireflyColors[0];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(50);
@@ -26,6 +38,22 @@ function setup() {
         }
       }
     });
+  let pickerY = slider.y + slider.height + 10;
+  colorPicker = [];
+  for (let i = 0; i < fireflyColors.length; i++) {
+    let c = fireflyColors[i];
+    let btn = createButton('')
+      .style('background-color', `rgb(${c[0]},${c[1]},${c[2]})`)
+      .style('width', '30px')
+      .style('height', '30px')
+      .style('border', i === 0 ? '2px solid #fff' : '1px solid #333')
+      .position(10 + i * 35, pickerY)
+      .mousePressed(() => {
+        currentColor = c;
+        colorPicker.forEach((b, j) => b.style('border', j === i ? '2px solid #fff' : '1px solid #333'));
+      });
+    colorPicker.push(btn);
+  }
 }
 function draw() {
   background(30);
@@ -46,7 +74,7 @@ function draw() {
     if (p[i].y < 0) p[i].y = height;
     p[i].add(d);
 
-    stroke(0, 0, 200, abs(sin(off * 100 + x * 10) * 255));
+    stroke(currentColor[0], currentColor[1], currentColor[2], abs(sin(off * 100 + x * 10) * 255));
     strokeWeight(ceil(500 / N) + 2);
     point(p[i].x, p[i].y);
 
